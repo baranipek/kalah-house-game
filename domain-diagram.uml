@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.bi.kalah.model.EndZone</OriginalElement>
+  <nodes>
+    <node x="903.0" y="308.0">com.bi.kalah.model.EndZone.EndZoneBuilder</node>
+    <node x="259.0" y="141.0">com.bi.kalah.model.Player</node>
+    <node x="697.0" y="308.0">com.bi.kalah.model.GameBoard.GameBoardBuilder</node>
+    <node x="509.5" y="308.0">com.bi.kalah.model.Hole.HoleBuilder</node>
+    <node x="646.0" y="119.0">com.bi.kalah.model.GameBoard</node>
+    <node x="383.875" y="0.0">lombok.Builder</node>
+    <node x="98.0" y="163.0">lombok.Builder.ObtainVia</node>
+    <node x="682.0" y="0.0">lombok.Data</node>
+    <node x="913.0" y="163.0">com.bi.kalah.model.EndZone</node>
+    <node x="0.0" y="174.0">lombok.Builder.Default</node>
+    <node x="497.0" y="152.0">com.bi.kalah.model.Hole</node>
+    <node x="312.0" y="308.0">com.bi.kalah.model.Player.PlayerBuilder</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.bi.kalah.model.GameBoard" target="lombok.Data">
+      <point x="61.75" y="-69.5" />
+      <point x="831.25" y="99.0" />
+      <point x="720.125" y="99.0" />
+      <point x="7.625" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.GameBoard.GameBoardBuilder" target="com.bi.kalah.model.GameBoard">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="69.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.Player" target="lombok.Builder">
+      <point x="-54.49999999999994" y="-47.5" />
+      <point x="313.50000000000006" y="99.0" />
+      <point x="415.125" y="99.0" />
+      <point x="-6.25" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.Hole.HoleBuilder" target="com.bi.kalah.model.Hole">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.GameBoard" target="lombok.Builder">
+      <point x="-61.75" y="-69.5" />
+      <point x="707.75" y="69.0" />
+      <point x="440.125" y="69.0" />
+      <point x="18.75" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.Player" target="lombok.Data">
+      <point x="54.50000000000006" y="-47.5" />
+      <point x="422.50000000000006" y="89.0" />
+      <point x="689.625" y="89.0" />
+      <point x="-22.875" y="14.5" />
+    </edge>
+    <edge source="lombok.Builder.ObtainVia" target="lombok.Builder">
+      <point x="0.0" y="-25.5" />
+      <point x="168.5" y="89.0" />
+      <point x="402.625" y="89.0" />
+      <point x="-18.75" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.Hole" target="lombok.Builder">
+      <point x="-32.25" y="-36.5" />
+      <point x="529.25" y="79.0" />
+      <point x="427.625" y="79.0" />
+      <point x="6.25" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.EndZone" target="lombok.Data">
+      <point x="27.25" y="-25.5" />
+      <point x="994.75" y="49.0" />
+      <point x="735.375" y="49.0" />
+      <point x="22.875" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.Player.PlayerBuilder" target="com.bi.kalah.model.Player">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="47.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.Hole" target="lombok.Data">
+      <point x="32.25" y="-36.5" />
+      <point x="593.75" y="99.0" />
+      <point x="704.875" y="99.0" />
+      <point x="-7.625" y="14.5" />
+    </edge>
+    <edge source="lombok.Builder.Default" target="lombok.Builder">
+      <point x="0.0" y="-14.5" />
+      <point x="39.0" y="79.0" />
+      <point x="390.125" y="79.0" />
+      <point x="-31.25" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.EndZone" target="lombok.Builder">
+      <point x="-27.25" y="-25.5" />
+      <point x="940.25" y="59.0" />
+      <point x="452.625" y="59.0" />
+      <point x="31.25" y="14.5" />
+    </edge>
+    <edge source="com.bi.kalah.model.EndZone.EndZoneBuilder" target="com.bi.kalah.model.EndZone">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="25.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.9" x="188.99999999999994" y="69.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
