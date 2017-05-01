@@ -1,6 +1,6 @@
 ## Kalah House Game
-Here is the Kalah(is called Mangala as well) House game implementation with 6 stones. For further information please  read wiki link
-(https://en.wikipedia.org/wiki/Kalah)
+Here is the Kalah(is called Mangala as well) House game implementation with 6 stones.
+ For further information please  read wiki link (https://en.wikipedia.org/wiki/Kalah)
 
 Each of the two players has six pits in front of him/her. To the right of the six pits, each player
 
@@ -48,15 +48,16 @@ docker run -p 8080:8080 baranipek/kalah-house-game  //run application on 8080 po
 
 ##  API EndPoints
 
-1.You can reach swagger ui via http://localhost:8080/swagger-ui.html and show and list the endpoints
-  also dummy inputs are ready by swagger
+1.You can reach swagger ui via http://localhost:8080/swagger-ui.html and show and
+list the endpoints also dummy inputs are ready by swagger
 
 2.First Endpoint is post method provices gameboard id and default player and holes and seeds on it.
+
 
     Request : curl -X POST --header "Content-Type: application/json" --header "Accept: */*" "http://localhost:8080/api/gameboard"
 
     Response :
-   {
+    {
      "id": "b37ee4a8-5e25-479e-8707-08f3c7a4d49c",
      "activePlayer": "NORTH",
      "playerNorth": {
@@ -127,8 +128,9 @@ docker run -p 8080:8080 baranipek/kalah-house-game  //run application on 8080 po
    }
 
 
-  3.Other endpoint for getting information by gameboard id.
-   Request : curl -X GET --header "Content-Type: application/json" "Content-Type: application/json" "Accept: */*" "http://localhost:8080/api/gameboard/b37ee4a8-5e25-479e-8707-08f3c7a4d49c"
+  3. Other endpoint for getting information by gameboard id.
+     curl -X GET --header "Content-Type: application/json" "Content-Type: application/json"
+     "Accept: */*" "http://localhost:8080/api/gameboard/b37ee4a8-5e25-479e-8707-08f3c7a4d49c"
 
   4. /api/gameboard is listed all stored gameboard's information
   
@@ -208,7 +210,5 @@ docker run -p 8080:8080 baranipek/kalah-house-game  //run application on 8080 po
       },
       "hasWinner": false
     }
-
-
 
 ENJOY!
