@@ -86,7 +86,7 @@ public class GameBoardServiceImpl implements GameBoardService {
         activeHole.setSeeds(EMPTY_HOLE_SEED_COUNT);
 
         this.helper.switchActiveUser(gameBoard);
-        iterateSeedList(activeHole, activePlayer, seeds, gameBoard);
+        deliverSeedsToHoles(activeHole, activePlayer, seeds, gameBoard);
 
         this.addSeedEndZone(activePlayer, seeds, gameBoard);
         if (--seeds[0] > EMPTY_HOLE_SEED_COUNT) {
@@ -138,7 +138,8 @@ public class GameBoardServiceImpl implements GameBoardService {
         }
     }
 
-    private void iterateSeedList(Hole activeHold, Player activePlayer, int[] seeds, GameBoard gameBoard) {
+    // Deliver seeds into holes by following game rules
+    private void deliverSeedsToHoles(Hole activeHold, Player activePlayer, int[] seeds, GameBoard gameBoard) {
         IntStream.range(activeHold.getId().getIndex() + SEED_INCREMENT_INDEX, MAX_HOLE_COUNT).
                 filter(index -> seeds[0] > EMPTY_HOLE_SEED_COUNT).forEach(index -> {
                     Hole hole = activePlayer.getHoleList().get(index);
