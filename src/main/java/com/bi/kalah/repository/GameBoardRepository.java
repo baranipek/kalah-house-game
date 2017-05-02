@@ -1,6 +1,6 @@
 package com.bi.kalah.repository;
 
-import com.bi.kalah.model.GameBoard;
+import com.bi.kalah.model.domain.GameBoard;
 
 import java.util.List;
 

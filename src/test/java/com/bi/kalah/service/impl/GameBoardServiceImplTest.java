@@ -1,14 +1,14 @@
 package com.bi.kalah.service.impl;
 
 import com.bi.kalah.exception.ResourceNotFoundException;
-import com.bi.kalah.model.EndZone;
-import com.bi.kalah.model.GameBoard;
-import com.bi.kalah.model.Hole;
-import com.bi.kalah.model.Player;
+import com.bi.kalah.model.domain.EndZone;
+import com.bi.kalah.model.domain.GameBoard;
+import com.bi.kalah.model.domain.Hole;
+import com.bi.kalah.model.domain.Player;
 import com.bi.kalah.model.enumeration.HoleEnum;
 import com.bi.kalah.model.enumeration.PlayerEnum;
 import com.bi.kalah.repository.GameBoardRepository;
-import com.bi.kalah.utility.GameBoardHelper;
+import com.bi.kalah.helper.GameBoardHelper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,21 +36,17 @@ public class GameBoardServiceImplTest {
     private GameBoardRepository boardRepository;
 
     @Spy
-    private GameBoardHelper helper;
+    GameBoardHelper helper;
 
     private Player playerNorth;
 
     private Player playerSouth;
 
-    private EndZone endZoneSouth;
-
-    private EndZone endZoneNorth;
-
 
     @Before
     public void setUp() throws Exception {
-        endZoneSouth = EndZone.builder().seeds(0).seeds(0).build();
-        endZoneNorth = EndZone.builder().seeds(0).seeds(0).build();
+        EndZone endZoneSouth = EndZone.builder().seeds(0).seeds(0).build();
+        EndZone endZoneNorth = EndZone.builder().seeds(0).seeds(0).build();
 
         List<Hole> holeListSouth = this.getHoles();
         List<Hole> holeListNorth = this.getHoles();
@@ -169,6 +165,7 @@ public class GameBoardServiceImplTest {
         assertEquals(board.getActivePlayer(), PlayerEnum.SOUTH);
 
     }
+
 
     @Test
     public void findGameBoardByIdAsExpected() {

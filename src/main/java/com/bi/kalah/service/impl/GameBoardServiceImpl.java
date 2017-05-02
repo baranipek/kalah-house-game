@@ -1,15 +1,15 @@
 package com.bi.kalah.service.impl;
 
 import com.bi.kalah.exception.ResourceNotFoundException;
-import com.bi.kalah.model.EndZone;
-import com.bi.kalah.model.GameBoard;
-import com.bi.kalah.model.Hole;
-import com.bi.kalah.model.Player;
+import com.bi.kalah.helper.GameBoardHelper;
+import com.bi.kalah.model.domain.EndZone;
+import com.bi.kalah.model.domain.GameBoard;
+import com.bi.kalah.model.domain.Hole;
+import com.bi.kalah.model.domain.Player;
 import com.bi.kalah.model.enumeration.HoleEnum;
 import com.bi.kalah.model.enumeration.PlayerEnum;
 import com.bi.kalah.repository.GameBoardRepository;
 import com.bi.kalah.service.GameBoardService;
-import com.bi.kalah.utility.GameBoardHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -26,14 +26,12 @@ import java.util.stream.IntStream;
 public class GameBoardServiceImpl implements GameBoardService {
 
     private static final int SEED_INCREMENT_INDEX = 1;
-
     private static final int EMPTY_HOLE_SEED_COUNT = 0;
-
     private static final int MAX_HOLE_COUNT = 6;
 
-    GameBoardRepository boardRepository;
+    private GameBoardRepository boardRepository;
 
-    GameBoardHelper helper;
+    private GameBoardHelper helper;
 
     @Autowired
     public GameBoardServiceImpl(final GameBoardRepository boardRepository, final GameBoardHelper helper) {
@@ -45,10 +43,8 @@ public class GameBoardServiceImpl implements GameBoardService {
     public GameBoard create() {
         EndZone endZone = EndZone.builder().seeds(0).build();
 
-        final Player playerNorth = Player.builder().id(PlayerEnum.NORTH).endZone(endZone).
-                holeList(this.helper.generateDefaultPitList()).build();
-        final Player playerSouth = Player.builder().id(PlayerEnum.SOUTH).endZone(endZone).
-                holeList(this.helper.generateDefaultPitList()).build();
+        final Player playerNorth = Player.builder().id(PlayerEnum.NORTH).endZone(endZone).holeList(this.helper.generateDefaultPitList()).build();
+        final Player playerSouth = Player.builder().id(PlayerEnum.SOUTH).endZone(endZone).holeList(this.helper.generateDefaultPitList()).build();
 
         GameBoard board = GameBoard.builder().activePlayer(PlayerEnum.NORTH).id(UUID.randomUUID().toString())
                 .playerNorth(playerNorth).playerSouth(playerSouth).build();
@@ -74,8 +70,9 @@ public class GameBoardServiceImpl implements GameBoardService {
 
     @Override
     public GameBoard find(String boardId) {
-        if (boardRepository.find(boardId)==null)
+        if (boardRepository.find(boardId) == null) {
             throw new ResourceNotFoundException("Game Board does not found with" + boardId);
+        }
         return this.boardRepository.find(boardId);
     }
 
@@ -88,14 +85,13 @@ public class GameBoardServiceImpl implements GameBoardService {
         int[] seeds = {activeHole.getSeeds()};
         activeHole.setSeeds(EMPTY_HOLE_SEED_COUNT);
 
-         this.helper.switchActiveUser(gameBoard);
+        this.helper.switchActiveUser(gameBoard);
         iterateSeedList(activeHole, activePlayer, seeds, gameBoard);
 
         this.addSeedEndZone(activePlayer, seeds, gameBoard);
         if (--seeds[0] > EMPTY_HOLE_SEED_COUNT) {
             this.addSeedOpponentSide(gameBoard, seeds);
         }
-
 
 
     }
@@ -108,12 +104,7 @@ public class GameBoardServiceImpl implements GameBoardService {
         int totalSeedPlayerSouth = playerSouth.getHoleList().stream().mapToInt(Hole::getSeeds).sum();
 
         if (totalSeedPlayerSouth == EMPTY_HOLE_SEED_COUNT || totalSeedPlayerNorth == EMPTY_HOLE_SEED_COUNT) {
-            int[] totalEndZoneCount = new int[1];
-            totalEndZoneCount[0] = totalSeedPlayerNorth;
-            this.addSeedEndZoneByRule(gameBoard.getPlayerNorth(), totalEndZoneCount);
-
-            totalEndZoneCount[0] = totalSeedPlayerSouth;
-            this.addSeedEndZoneByRule(gameBoard.getPlayerSouth(), totalEndZoneCount);
+            this.addTotalSeedsToEndZone(gameBoard, totalSeedPlayerNorth, totalSeedPlayerSouth);
 
             if (playerNorth.getEndZone().getSeeds() > playerSouth.getEndZone().getSeeds()) {
                 gameBoard.setActivePlayer(playerNorth.getId());
@@ -126,6 +117,15 @@ public class GameBoardServiceImpl implements GameBoardService {
         }
 
 
+    }
+
+    private void addTotalSeedsToEndZone(GameBoard gameBoard, int totalSeedPlayerNorth, int totalSeedPlayerSouth) {
+        int[] totalEndZoneCount = new int[1];
+        totalEndZoneCount[0] = totalSeedPlayerNorth;
+        this.addSeedEndZoneByRule(gameBoard.getPlayerNorth(), totalEndZoneCount);
+
+        totalEndZoneCount[0] = totalSeedPlayerSouth;
+        this.addSeedEndZoneByRule(gameBoard.getPlayerSouth(), totalEndZoneCount);
     }
 
     private void addSeedOpponentSide(GameBoard gameBoard, int[] seeds) {
@@ -157,6 +157,17 @@ public class GameBoardServiceImpl implements GameBoardService {
         int opponentIndex = (MAX_HOLE_COUNT - hole.getId().getIndex()) - SEED_INCREMENT_INDEX;
         final int[] opponentSeedCount = new int[1];
         int holeOpponentCount;
+
+        holeOpponentCount = this.getHoleOpponentCount(activePlayer, gameBoard, opponentIndex);
+        activePlayer.getHoleList().get(hole.getId().getIndex()).setSeeds(EMPTY_HOLE_SEED_COUNT);
+
+        opponentSeedCount[0] = holeOpponentCount;
+        this.addSeedEndZoneByRule(activePlayer, opponentSeedCount);
+
+    }
+
+    private int getHoleOpponentCount(Player activePlayer, GameBoard gameBoard, int opponentIndex) {
+        int holeOpponentCount;
         if (activePlayer.getId() == PlayerEnum.SOUTH) {
             holeOpponentCount = gameBoard.getPlayerNorth().getHoleList().get(opponentIndex).getSeeds();
             gameBoard.getPlayerNorth().getHoleList().get(opponentIndex).setSeeds(EMPTY_HOLE_SEED_COUNT);
@@ -165,11 +176,7 @@ public class GameBoardServiceImpl implements GameBoardService {
             holeOpponentCount = gameBoard.getPlayerSouth().getHoleList().get(opponentIndex).getSeeds();
             gameBoard.getPlayerSouth().getHoleList().get(opponentIndex).setSeeds(EMPTY_HOLE_SEED_COUNT);
         }
-
-        activePlayer.getHoleList().get(hole.getId().getIndex()).setSeeds(EMPTY_HOLE_SEED_COUNT);
-        opponentSeedCount[0] = holeOpponentCount;
-        this.addSeedEndZoneByRule(activePlayer, opponentSeedCount);
-
+        return holeOpponentCount;
     }
 
     private void addSeedEndZoneByRule(Player activePlayer, int[] opponentSeedCount) {
@@ -187,8 +194,9 @@ public class GameBoardServiceImpl implements GameBoardService {
 
 
     private GameBoard getBoardById(String id) {
-        if (id == null || boardRepository.find(id) == null)
+        if (id == null || boardRepository.find(id) == null) {
             throw new ResourceNotFoundException(" Resource not Found with " + id);
+        }
         return boardRepository.find(id);
     }
 }

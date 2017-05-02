@@ -1,8 +1,8 @@
 package com.bi.kalah.repository.impl;
 
-import com.bi.kalah.model.EndZone;
-import com.bi.kalah.model.GameBoard;
-import com.bi.kalah.model.Player;
+import com.bi.kalah.model.domain.EndZone;
+import com.bi.kalah.model.domain.GameBoard;
+import com.bi.kalah.model.domain.Player;
 import com.bi.kalah.model.enumeration.PlayerEnum;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,11 +27,9 @@ public class GameBoardRepositoryImplTest {
 
     private Player playerSouth;
 
-    private EndZone endZone;
-
     @Before
     public void setUp() throws Exception {
-        endZone = EndZone.builder().seeds(0).seeds(0).build();
+        EndZone endZone = EndZone.builder().seeds(0).seeds(0).build();
         playerNorth = Player.builder().id(PlayerEnum.NORTH).endZone(endZone).build();
         playerSouth = Player.builder().id(PlayerEnum.SOUTH).endZone(endZone).build();
     }

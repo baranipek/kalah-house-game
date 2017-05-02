@@ -1,7 +1,7 @@
 package com.bi.kalah.service;
 
 
-import com.bi.kalah.model.GameBoard;
+import com.bi.kalah.model.domain.GameBoard;
 import com.bi.kalah.model.enumeration.HoleEnum;
 
 import java.util.List;

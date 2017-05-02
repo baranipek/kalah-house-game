@@ -1,4 +1,4 @@
-package com.bi.kalah.model;
+package com.bi.kalah.model.domain;
 
 import com.bi.kalah.model.enumeration.HoleEnum;
 import lombok.Builder;

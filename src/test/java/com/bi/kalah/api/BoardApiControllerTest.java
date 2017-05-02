@@ -1,6 +1,6 @@
 package com.bi.kalah.api;
 
-import com.bi.kalah.model.GameBoard;
+import com.bi.kalah.model.domain.GameBoard;
 import com.bi.kalah.model.enumeration.HoleEnum;
 import com.bi.kalah.model.enumeration.PlayerEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -149,7 +149,7 @@ public class BoardApiControllerTest {
     }
 
     @Test
-    public void playerStartsWithNorthMoveFirstAndThenSecondAndSouthMovesOne() throws Exception {
+    public void playerStartsWithNorthMoveFirstSeedAndThenSecondAndSouthMovesFirst() throws Exception {
         String board = mockModelView.perform(post("/api/gameboard").contentType(APPLICATION_JSON_UTF8)).
                 andDo(MockMvcResultHandlers.print()).andReturn().getResponse().getContentAsString();
         GameBoard boardJson = mapper.readValue(board, GameBoard.class);
@@ -244,6 +244,11 @@ public class BoardApiControllerTest {
         GameBoard boardJson = mapper.readValue(board, GameBoard.class);
 
         mockModelView.perform(get("/api/gameboard/"+boardJson.getId()).contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void findAllGameBoards() throws Exception {
+        mockModelView.perform(get("/api/gameboard").contentType(APPLICATION_JSON_UTF8)).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
     }
 
 }

@@ -1,6 +1,6 @@
 package com.bi.kalah.repository.impl;
 
-import com.bi.kalah.model.GameBoard;
+import com.bi.kalah.model.domain.GameBoard;
 import com.bi.kalah.repository.GameBoardRepository;
 import org.springframework.stereotype.Repository;
 

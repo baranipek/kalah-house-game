@@ -1,9 +1,10 @@
 package com.bi.kalah.utility;
 
 import com.bi.kalah.exception.BusinessException;
-import com.bi.kalah.model.GameBoard;
-import com.bi.kalah.model.Hole;
-import com.bi.kalah.model.Player;
+import com.bi.kalah.helper.GameBoardHelper;
+import com.bi.kalah.model.domain.GameBoard;
+import com.bi.kalah.model.domain.Hole;
+import com.bi.kalah.model.domain.Player;
 import com.bi.kalah.model.enumeration.PlayerEnum;
 import org.junit.Test;
 import org.junit.runner.RunWith;

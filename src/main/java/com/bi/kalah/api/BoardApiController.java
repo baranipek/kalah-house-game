@@ -1,6 +1,6 @@
 package com.bi.kalah.api;
 
-import com.bi.kalah.model.GameBoard;
+import com.bi.kalah.model.domain.GameBoard;
 import com.bi.kalah.model.enumeration.HoleEnum;
 import com.bi.kalah.service.GameBoardService;
 import io.swagger.annotations.ApiOperation;

@@ -1,4 +1,4 @@
-package com.bi.kalah.model;
+package com.bi.kalah.model.domain;
 
 import lombok.Builder;
 import lombok.Data;
