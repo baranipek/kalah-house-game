@@ -137,8 +137,7 @@ public class GameBoardServiceImpl implements GameBoardService {
 
         }
     }
-
-    // Deliver seeds into holes by following game rules
+    
     private void deliverSeedsToHoles(Hole activeHold, Player activePlayer, int[] seeds, GameBoard gameBoard) {
         IntStream.range(activeHold.getId().getIndex() + SEED_INCREMENT_INDEX, MAX_HOLE_COUNT).
                 filter(index -> seeds[0] > EMPTY_HOLE_SEED_COUNT).forEach(index -> {
